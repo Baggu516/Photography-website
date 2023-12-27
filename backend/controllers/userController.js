@@ -1,5 +1,7 @@
 const { customResponse } = require("../utilities/customResponse.js");
+// .............modals.........
 const {users} = require("../modals/registerModal.js");
+const imagesModal=require("../modals/imageModal.js")
 const bcrypt = require("bcrypt");
 // .....jwt...
 const jwt = require('jsonwebtoken');
@@ -195,10 +197,39 @@ const uploadSingleImage=async(req,res)=>{
 
 }
 // ...............Get_User.......................
+
 const Get_User=async(req,res)=>{
    let user=req.user
    return customResponse(res,200,true,"sucessful",user)
 
 }
 
-module.exports={Register,Login,SendingOtp,ForgotPasswordVerification,Get_User,ResetPassword,uploadSingleImage}
+// .........ImageUploader..................
+const ImageUploader=async(req,res)=>{
+   try {
+    let user=req.user
+    console.log( req.file.path)
+    // res.send( req.file.path)
+    if(req.file.path==""){
+      return customResponse(res,400,false,"No Link from Cloudinary",null)
+    }
+    let exist =await imagesModal.findOne({email:user.email})
+    if(exist==null){
+      let newuser=await imagesModal.create({
+        email:user.email,
+        imgURL_Arr:[req.file.path]
+  
+      })
+      return customResponse(res,200,true,"Link Add  to DB Sucessfully",newuser)
+    }
+    let lst=[...exist.imgURL_Arr]
+    lst.push(req.file.path)
+    exist.imgURL_Arr=lst
+    let updated_User=await exist.save()
+    return customResponse(res,200,true,"Successfully Uploaded Image in DataBase !",updated_User)
+   } catch (error) {
+     return customResponse(res,500,false,"Something went Wrong !",null)
+   }
+}
+
+module.exports={Register,Login,SendingOtp,ForgotPasswordVerification,Get_User,ResetPassword,uploadSingleImage,ImageUploader}
