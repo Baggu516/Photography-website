@@ -22,7 +22,7 @@ function App() {
         <Route path="/" element={<Feed />}></Route>
         <Route path="home" element={<Home />} />
         <Route path="uploads" element={<Uploads />} />
-        <Route path="youraccount" element={<VerifyOtpForm/>} />
+        <Route path="youraccount" element={<LoginForm/>} />
         </Routes>
         {/* <Feed /> */}
         <RightBar />

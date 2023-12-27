@@ -1,63 +1,64 @@
-// LoginForm.js
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Paper, Typography } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(3),
-    maxWidth: 400,
-    margin: 'auto',
-    marginTop: theme.spacing(4),
-  },
-  textField: {
-    marginBottom: theme.spacing(2),
-  },
-}));
+import { TextField, Button, Link, Grid, Typography, Container } from '@mui/material';
 
 const LoginForm = () => {
-  const classes = useStyles();
-
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Perform login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // Implement your login logic here
+    console.log('Login clicked');
+  };
+
+  const handleForgotPassword = () => {
+    // Implement your forgot password logic here
+    console.log('Forgot Password clicked');
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <Typography variant="h5" gutterBottom>
-        Login
-      </Typography>
-      <TextField
-        label="Username"
-        variant="outlined"
-        fullWidth
-        className={classes.textField}
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        type="password"
-        fullWidth
-        className={classes.textField}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleLogin}
-      >
-        Login
-      </Button>
-    </Paper>
+    <Container component="main" maxWidth="xs">
+      <div>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Email Address"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
+            Sign In
+          </Button>
+          <Grid container >
+            <Grid item xs sx={{display:"flex",alignItems:"center",justifyContent:"center",margin:"10px"}}>
+              {/* <Typography variant='p' >Click here </Typography> */}
+              <Link href="#" variant="body2" onClick={handleForgotPassword}>
+                Forgot password?
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
 
