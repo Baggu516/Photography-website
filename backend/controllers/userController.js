@@ -31,7 +31,7 @@ const Register = async (req, res) => {
     let exist = await users.findOne({ email });
     console.log(exist);
     if (exist != null) {
-        return customResponse(res,400,false,"User Already exist",null)
+        return customResponse(res,200,false,"User Already exist",null)
     }
     let hashPassword = await bcrypt.hash(password, 10);
     let newuser = await users.create({
@@ -77,7 +77,7 @@ const Login=async(req,res)=>{
       console.log("above compare")
       let check=await bcrypt.compare(password, exist.password)
       console.log("below compare")
-  if(check){
+     if(check){
     
       // const created_user =  await newUser.save();
       let user = {id: exist._id}

@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
-import { TextField, Button, Link, Grid, Typography, Container } from '@mui/material';
-
+import React, { useState,useContext } from 'react';
+import { TextField, Button, Grid, Typography, Container, Paper } from '@mui/material';
+import api from '../customAxios/Axios';
+import { useNavigate,Link } from "react-router-dom";
+// ...importing context........
+import AuthContext from "../context/AuthContext";
+// ............................
 const LoginForm = () => {
+  // ........context.................
+  let {username,setUsername,token,setToken,gmail,setGmail}=useContext(AuthContext)
+  // .................................
+  const navigate=useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    console.log('Login clicked');
+  const handleLogin = async() => {
+    try {
+      let response= await api.post("/login",{
+        // username,
+        email,
+        password
+       })
+       setToken(response.data.data.access_token)
+       setUsername(response.data.data.exist.username)
+       setGmail(response.data.data.exist.email)
+       console.log("token",response.data.data.access_token)
+       console.log("username",response.data.data.exist.username)
+       console.log("userdetails: ",response.data.data.exist.email)
+       localStorage.setItem("token",response.data.data.access_token)
+       localStorage.setItem("username",response.data.data.exist.username)
+       localStorage.setItem("gmail",response.data.data.exist.email)
+       navigate("/")
+    } catch (error) {
+      console.log("err in login",error)
+    } 
   };
 
   const handleForgotPassword = () => {
@@ -16,8 +41,9 @@ const LoginForm = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+    <Grid item xs={12} sm={8} md={6} lg={4}>
+      <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -48,17 +74,22 @@ const LoginForm = () => {
           >
             Sign In
           </Button>
-          <Grid container >
+          <Grid container sx={{display:"flex",flexDirection:"column"}}>
             <Grid item xs sx={{display:"flex",alignItems:"center",justifyContent:"center",margin:"10px"}}>
               {/* <Typography variant='p' >Click here </Typography> */}
               <Link href="#" variant="body2" onClick={handleForgotPassword}>
                 Forgot password?
               </Link>
             </Grid>
+            <Grid item xs sx={{display:"flex",alignItems:"center",justifyContent:"center",gap:"10px",margin:"10px"}}>
+           <Typography variant='p' >Don't have an account already ? Register {" "}</Typography> 
+            <Link to="/register"> Here </Link>
+            </Grid>
           </Grid>
         </form>
-      </div>
-    </Container>
+      </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,82 +1,49 @@
-// ImageUploadForm.js
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, Paper } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(3),
-    maxWidth: 600,
-    margin: 'auto',
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  input: {
-    display: 'none',
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const ImageUploadForm = ({ onUpload }) => {
-  const classes = useStyles();
+const ImageUploadForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     setSelectedFile(file);
   };
 
   const handleUpload = () => {
-    // Perform image upload logic here
+    // Add your upload logic here
     if (selectedFile) {
-      onUpload(selectedFile); // Pass the selected file to the parent component or perform upload logic
+      // You can perform an action like uploading the file to a server
+      alert(`File "${selectedFile.name}" uploaded successfully!`);
     } else {
-      // Handle no file selected
-      console.error('No file selected');
+      alert('Please select a file to upload.');
     }
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <Typography variant="h5" gutterBottom>
-        Upload Image
-      </Typography>
-      <input
-        accept="image/*"
-        className={classes.input}
-        id="image-upload"
-        type="file"
-        onChange={handleFileChange}
-      />
-      <label htmlFor="image-upload">
-        <Button
-          variant="contained"
-          color="primary"
-          component="span"
-        >
-          Choose File
-        </Button>
-      </label>
-      {selectedFile && (
-        <Typography variant="body1" gutterBottom>
-          Selected File: {selectedFile.name}
-        </Typography>
-      )}
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleUpload}
-        disabled={!selectedFile}
-        className={classes.button}
-      >
-        Upload
-      </Button>
-    </Paper>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+      <Grid item xs={12} sm={8} md={6} lg={4}>
+        <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
+          <Typography variant="h5" gutterBottom>
+            Image Upload
+          </Typography>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ marginBottom: '16px' }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleUpload}
+            disabled={!selectedFile}
+          >
+            Upload Image
+          </Button>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -15,9 +15,9 @@ const RightBar = () => {
       
       flex={1.5}
       p={2}
-      sx={{ display: { xs: "none", sm: "block" } }}
+      sx={{ display: { xs: "none", sm: "block",right:"0" } }}
       // position={"fixed"} 
-      // right={1000}
+      // right={0}
     >
       <Box position={"fixed"}>
         <Box>

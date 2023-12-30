@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, Paper, Typography } from '@material-ui/core';
-
+import { Grid } from '@mui/material';
+import api from '../customAxios/Axios';
+import { Link } from 'react-router-dom';
+// import axios from "axios"
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
@@ -22,15 +25,24 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const handleRegister = () => {
-    // Perform registration logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Username:', username);
+  const handleRegister = async() => {
+    try {
+      let response= await api.post("/register",{
+        username,
+        email,
+        password
+       })
+       console.log("userdetails: ",response.data.message)
+    } catch (error) {
+      console.log("err in sign up",error)
+    }
+ 
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+    <Grid item xs={12} sm={8} md={6} lg={4}>
+    <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
       <Typography variant="h5" gutterBottom>
         Register
       </Typography>
@@ -72,7 +84,15 @@ const RegisterForm = () => {
       >
         Register
       </Button>
+      <Grid container >
+      <Grid item xs sx={{display:"flex",alignItems:"center",justifyContent:"center",gap:"10px",margin:"10px"}}>
+           <Typography variant='p' >Have an account already ? Login {" "}</Typography> 
+            <Link to="/login"> Here </Link>
+      </Grid>
+      </Grid>
     </Paper>
+    </Grid>
+    </Grid>
   );
 };
 

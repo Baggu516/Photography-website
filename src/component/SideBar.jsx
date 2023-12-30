@@ -8,13 +8,16 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const SideBar = () => {
+  const { id } = useParams();
+  console.log("id",id)
   return (
     <Box  flex={1} p={2} sx={{display:{xs:"none",sm:"block"}}}>
         <Box position={"fixed"}>
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component="a" href="/">
               <ListItemIcon>
                <HomeRoundedIcon/>
               </ListItemIcon>
@@ -39,7 +42,7 @@ const SideBar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/youraccount">
+            <ListItemButton component="a" href="/feed">
               <ListItemIcon>
            <AccountCircleIcon/>
               </ListItemIcon>
@@ -47,7 +50,7 @@ const SideBar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/uploads">
+            <ListItemButton component="a" href="/reset">
               <ListItemIcon>
               <SettingsRoundedIcon/>
               </ListItemIcon>
@@ -55,13 +58,21 @@ const SideBar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#sample-list">
+            <ListItemButton component="a" href="/logout">
               <ListItemIcon>
             <LogoutIcon/>
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
+          {/* <ListItem disablePadding>
+            <ListItemButton component="a" href="/reset">
+              <ListItemIcon>
+            <LogoutIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Reset" />
+            </ListItemButton>
+          </ListItem> */}
           </List>
         </Box>
         
