@@ -17,12 +17,21 @@ import ResetForm from "./SideBar-Component/ResetForm";
 import Index from "./component/Index";
 import Logout from "./SideBar-Component/Logout";
 import PrivateRoute from "./utilities/PrivateRoute";
+import ForgotPassword from "./components2/ForgotPassword";
+// theme.................
+import { ThemeProvider } from '@mui/material/styles';
+import AuthContext from "./context/AuthContext";
+import { useContext } from "react";
+// ........................
 function App() {
+  let {theme}=useContext(AuthContext)
   const { id } = useParams();
   console.log("id", id);
   console.log("useParam", useParams());
   return (
+   
     <Box>
+       <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<PrivateRoute><Index /></PrivateRoute>}>
           <Route index element={<PrivateRoute><Feed /></PrivateRoute>} />
@@ -40,8 +49,12 @@ function App() {
         </Route>
         <Route path="login" element={<LoginForm />} />
         <Route path="register" element={<RegisterForm />} />
+        <Route path="home" element={<VerifyOtpForm />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
+      </ThemeProvider>
     </Box>
+    // </ThemeProvider>
   );
 }
 

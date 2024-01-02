@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography } from '@mui/material'
+import { Box, Button, Grid, Paper, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import AuthContext from "../context/AuthContext";
 const Logout = () => {
@@ -12,16 +12,22 @@ const Logout = () => {
            localStorage.removeItem("gmail")
     }
   return (
-    <Box  sx={{display:"flex", textAlign:"center", justifyContent:"center",alignItems:"center"}} >
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
+    <Grid item xs={11} sm={6} md={5} lg={4}>
+      {/* <Paper  style={{ padding: '20px' }}>
+    <Box  > */}
     <Paper elevation={5} sx={{padding:"20px",display:"flex", alignItems:"center", justifyContent:"center",flexDirection:"column",gap:"10px",marginTop:"200px"}}>
     <Typography variant='h6'>Are you sure want to LogOut ?</Typography>
      <Box>
     
         <Button variant='contained' onClick={handleLogout}>Yes</Button>
-     </Box>
-    </Paper>
+     {/* </Box>
+    </Paper> */}
    
     </Box>
+    </Paper>
+    </Grid>
+    </Grid>
   )
 }
 

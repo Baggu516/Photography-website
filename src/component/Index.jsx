@@ -16,7 +16,7 @@ const Index = () => {
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <SideBar/>
         <Outlet />
-        <RightBar/>
+        {/* <RightBar/> */}
       </Stack>
     </Box>
   )

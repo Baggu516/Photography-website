@@ -124,14 +124,15 @@ const SendingOtp=async(req,res)=>{
 // .........forgot password otp verification..............
 const ForgotPasswordVerification=async(req,res)=>{
   let {email,otp,password,confirmPassword}=req.body
+  console.log(req.body)
   if(!email || !otp || !password || !confirmPassword){
-    return customResponse(res,400,false,"Required all fields",null)
+    return customResponse(res,200,false,"Required all fields",null)
   }
   try {
     let exist = await users.findOne({ email });
     console.log(exist);
-    if (exist != null) {
-        return customResponse(res,400,false,"Enter Valid Email",null)
+    if (exist == null) {
+        return customResponse(res,200,false,"Enter Valid Email",null)
     }
     if(password!==confirmPassword){
       return customResponse(res,400,false,"Password and Confirm-Password Must be same",null)
@@ -180,7 +181,7 @@ const ResetPassword=async(req,res)=>{
 
 }
 // ...............Upload Image.....................
-const uploadSingleImage=async(req,res)=>{
+const uploadProfileImage=async(req,res)=>{
   let user=req.user
   console.log( req.file.path)
   // res.send( req.file.path)
@@ -231,5 +232,49 @@ const ImageUploader=async(req,res)=>{
      return customResponse(res,500,false,"Something went Wrong !",null)
    }
 }
+// ............getUserImages......................................
+const getUserImages=async(req,res)=>{
+ try {
+  let user=req.user
+  let exist=await imagesModal.findOne({email:user.email})
+  if(exist==null){
+    return customResponse(res,200,false,"Unable get User Images",null)
+  }
+  return customResponse(res,200,true,"Successfully Load the User Images",exist)
+ } catch (error) {
+  return customResponse(res,500,false,"Something Went Wrong",null)
+ } 
+}
+// ..........getAlluserImages..........................
+const getAllUserImages=async(req,res)=>{
+  
+  let exist = await imagesModal.find({})
+  if(exist.length==0){
 
-module.exports={Register,Login,SendingOtp,ForgotPasswordVerification,Get_User,ResetPassword,uploadSingleImage,ImageUploader}
+    return customResponse(res,400,false,"No Data yet",null)
+  }
+  let lst=[]
+  exist.forEach((item)=>{
+     
+    lst.push(...item.imgURL_Arr)
+
+  })
+  return customResponse(res,200,true,"Fetched Successfully",lst)
+  console.log("all users",exist)
+
+
+}
+// .......getUserProfile.............
+const getUserProfileImage=async(req,res)=>{
+  
+  let user=req.user
+  let exist=await users.findOne({email:user.email})
+  if(exist==null){
+    return "userDoesnt exist"
+  }
+  return customResponse(res,200,true,"Succcessfull",exist.profileURL)
+
+}
+
+module.exports={Register,Login,SendingOtp,ForgotPasswordVerification,
+  Get_User,ResetPassword,uploadProfileImage,ImageUploader,getUserImages,getAllUserImages,getUserProfileImage}

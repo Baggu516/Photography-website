@@ -5,6 +5,7 @@ import { useNavigate,Link } from "react-router-dom";
 // ...importing context........
 import AuthContext from "../context/AuthContext";
 // ............................
+// import api from '../customAxios/Axios';
 const LoginForm = () => {
   // ........context.................
   let {username,setUsername,token,setToken,gmail,setGmail}=useContext(AuthContext)
@@ -35,8 +36,21 @@ const LoginForm = () => {
     } 
   };
 
-  const handleForgotPassword = () => {
+  const handleForgotPassword = async(e) => {
     // Implement your forgot password logic here
+    e.preventDefault();
+    if(!email){
+      return alert("Enter your Email")
+    }
+    try {
+      localStorage.setItem("useremail",email)
+      let res=await api.post("/sendingotp",{email})
+      console.log("ress for otp",res.data)
+      navigate("/forgotpassword")
+    } catch (error) {
+      
+    }
+    
     console.log('Forgot Password clicked');
   };
 

@@ -6,14 +6,16 @@ import {
   ImageListItem,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const RightBar = () => {
+  let {imglst}=useContext(AuthContext)
   return (
     <Box
       //   bgcolor={"red"}
       
-      flex={1.5}
+      flex={1}
       p={2}
       sx={{ display: { xs: "none", sm: "block",right:"0" } }}
       // position={"fixed"} 
@@ -28,10 +30,18 @@ const RightBar = () => {
             total={10}
             sx={{ padding: "0px", marginLeft: "0px", marginTop: "20px" }}
           >
-            <Avatar alt="Remy Sharp" src="./baggu.jpeg" />
-            <Avatar alt="Travis Howard" src="./baggu.jpeg" />
+            {imglst.map((item,i)=>{
+              return(<>
+               {/* {if(i>6)return } */}
+                {i<6&&<Avatar alt="Remy Sharp" src={item} />}
+              </>
+               
+              )
+            })}
+            
+            {/* <Avatar alt="Travis Howard" src="./baggu.jpeg" />
             <Avatar alt="Agnes Walker" src="./baggu.jpeg" />
-            <Avatar alt="Trevor Henderson" src="./baggu.jpeg" />
+            <Avatar alt="Trevor Henderson" src="./baggu.jpeg" /> */}
           </AvatarGroup>
         </Box>
       
@@ -45,7 +55,7 @@ const RightBar = () => {
             cols={2}
             rowHeight={121}
           >
-            {itemData.map((item,i) => (
+            {imglst.map((item,i) => (
               <ImageListItem
                 key={i}
                 // cols={item.cols || 1}
@@ -53,8 +63,8 @@ const RightBar = () => {
               >
                 <img
                   // {...srcset(item.img, 121, item.rows, item.cols)}
-                  src={item.img}
-                  alt={item.title}
+                  src={item}
+                  alt={"latest Img"}
                   loading="lazy"
                 />
               </ImageListItem>

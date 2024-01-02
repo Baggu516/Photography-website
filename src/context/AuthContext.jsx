@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-
+import { lightTheme,darkTheme } from "../ThemeFolder/theme";
 const AuthContext = createContext();
 
 export default AuthContext;
@@ -11,6 +11,11 @@ export const AuthProvider = ({ children }) => {
     const [username,setUsername]=useState(localStorage.getItem("username")?localStorage.getItem("username"):null)
     const [token,setToken]=useState(localStorage.getItem("token")?localStorage.getItem("token"):null)
     const [gmail,setGmail]=useState(localStorage.getItem("gmail")?localStorage.getItem("gmail"):null)
+    const [imglst,setImgLst]=useState([])
+    // .........theme...........
+    const [theme,setTheme]=useState(lightTheme)
+    // ..........................
+    const [profileLink,setProfileLink]=useState("")
     // const [id,setId]=useState()
     let ContextData = {
       username:username,
@@ -18,7 +23,13 @@ export const AuthProvider = ({ children }) => {
       token,
       setToken,
       gmail,
-      setGmail
+      setGmail,
+      imglst,
+      setImgLst,
+      theme,
+      setTheme,
+      setProfileLink,
+      profileLink
       
     };
       
