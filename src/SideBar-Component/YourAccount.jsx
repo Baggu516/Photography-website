@@ -20,7 +20,7 @@ import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import api from "../customAxios/Axios";
 import AuthContext from "../context/AuthContext";
 const YourAccount = () => {
-  let { token } = useContext(AuthContext);
+  let { token,setCurrentPath } = useContext(AuthContext);
   const [yourimages, setYourImages] = useState([]);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const YourAccount = () => {
       
     };
     getImages();
+    setCurrentPath(window.location.pathname)
   }, []);
    console.log(yourimages)
   return (
@@ -53,7 +54,7 @@ const YourAccount = () => {
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-                    N
+                    {localStorage.getItem("username").slice(0,1)}
                   </Avatar>
                 }
                 action={
@@ -61,8 +62,8 @@ const YourAccount = () => {
                     <MoreVertIcon />
                   </IconButton>
                 }
-                title="N Bhargav Sai"
-                subheader="December 25, 2023"
+                title={localStorage.getItem("username")}
+                // subheader="December 25, 2023"
               />
               <CardMedia
                 component="img"

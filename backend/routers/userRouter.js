@@ -1,7 +1,7 @@
 const express=require("express")
 const {Register, Login,Get_User,SendingOtp,
     ForgotPasswordVerification,ResetPassword,
-    uploadProfileImage,ImageUploader,getUserImages,getAllUserImages,getUserProfileImage}=require("../controllers/userController.js")
+    uploadProfileImage,ImageUploader,getUserImages,getAllUserImages,getUserProfileImage,getAllUserProfiles}=require("../controllers/userController.js")
 const parser=require("../utilities/cloudinary.js")
 const Auth=require("../middlewares/Auth.js")
 const router=express.Router()
@@ -17,4 +17,5 @@ router.post("/upload-single-imgage",Auth,parser.single("img"),uploadProfileImage
 router.get("/getuserimages",Auth,getUserImages)
 router.get("/getalluserimages",getAllUserImages)
 router.get("/getuserprofileimage",Auth,getUserProfileImage)
+router.get("/getalluserprofiles",Auth,getAllUserProfiles)
 module.exports=router

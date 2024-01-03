@@ -1,8 +1,8 @@
 import { Box, Button, Grid, Paper, Typography } from '@mui/material'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AuthContext from "../context/AuthContext";
 const Logout = () => {
-    let {username,setUsername,token,setToken,gmail,setGmail}=useContext(AuthContext)
+    let {username,setUsername,token,setToken,gmail,setGmail,setCurrentPath}=useContext(AuthContext)
     const handleLogout=()=>{
            setToken("")
         setUsername("")
@@ -11,8 +11,11 @@ const Logout = () => {
            localStorage.removeItem("username")
            localStorage.removeItem("gmail")
     }
+    useEffect(()=>{
+      setCurrentPath(window.location.pathname)
+     },[])
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
     <Grid item xs={11} sm={6} md={5} lg={4}>
       {/* <Paper  style={{ padding: '20px' }}>
     <Box  > */}

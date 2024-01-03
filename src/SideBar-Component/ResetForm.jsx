@@ -1,5 +1,5 @@
 // Import necessary libraries
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import { TextField, Button, Grid, Typography, Paper } from '@mui/material';
 import api from '../customAxios/Axios';
 import AuthContext from '../context/AuthContext';
@@ -11,7 +11,7 @@ const ResetForm = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   // ...............context.............
-  let {token}=useContext(AuthContext)
+  let {token,setCurrentPath}=useContext(AuthContext)
   // Handle form submission
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -42,9 +42,12 @@ const ResetForm = () => {
 
     // You can also dispatch an action or perform additional logic here
   };
+  useEffect(()=>{
+    setCurrentPath(window.location.pathname)
+   },[])
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
       <Grid item xs={12} sm={8} md={6} lg={4}>
         <Paper elevation={3} style={{ padding: '20px' }}>
           <Typography variant="h5" gutterBottom>

@@ -33,9 +33,9 @@ const ImageUploadForm = ({setModalIsOpen}) => {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center" flexDirection={"column"} style={{ width:"100%",minHeight: '60vh' }}>
+    <Grid container alignItems="center" justifyContent="center" flexDirection={"column"} style={{ width:"100%",minHeight: '60vh',background:"none", zIndex:999}}>
       {/* <Button variant='contained' onClick={()=>setModalIsOpen(false)}>Esc</Button> */}
-      <Grid item xs={12} sm={11} md={6} lg={4}>
+      <Grid item xs={5} sm={10} md={10} lg={6}>
         <Paper elevation={3} style={{ width:"100%",padding: '40px', textAlign: 'center' }}>
           <Typography variant="h5" gutterBottom>
             Upload Profile Img

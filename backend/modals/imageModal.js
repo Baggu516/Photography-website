@@ -4,6 +4,9 @@ const imageSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    username:{
+        type:String
+    },
     imgURL_Arr:{
         type: [String], 
         default: []     // Default value (empty array)

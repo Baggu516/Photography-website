@@ -1,10 +1,10 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import { Button, Grid, Typography, Paper } from '@mui/material';
 import api from '../customAxios/Axios';
 import AuthContext from '../context/AuthContext';
 const ImageUploadForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  let {token}=useContext(AuthContext)
+  let {token,setCurrentPath}=useContext(AuthContext)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     console.log("file",file)
@@ -28,10 +28,13 @@ const ImageUploadForm = () => {
       alert('Please select a file to upload.');
     }
   };
+  useEffect(()=>{
+    setCurrentPath(window.location.pathname)
+   },[])
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
-      <Grid item xs={12} sm={8} md={6} lg={4}>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
+      <Grid item xs={10} sm={8} md={6} lg={4}>
         <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
           <Typography variant="h5" gutterBottom>
             Image Upload

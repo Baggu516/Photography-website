@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     // ..........................
     const [profileLink,setProfileLink]=useState("")
     // const [id,setId]=useState()
+    // ..........current path..
+    const [currentPath,setCurrentPath]=useState("")
     let ContextData = {
       username:username,
       setUsername:setUsername,
@@ -29,7 +31,9 @@ export const AuthProvider = ({ children }) => {
       theme,
       setTheme,
       setProfileLink,
-      profileLink
+      profileLink,
+      currentPath,
+      setCurrentPath
       
     };
       

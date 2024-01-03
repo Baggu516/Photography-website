@@ -218,10 +218,16 @@ const ImageUploader=async(req,res)=>{
     if(exist==null){
       let newuser=await imagesModal.create({
         email:user.email,
+        username:user.username,
         imgURL_Arr:[req.file.path]
   
       })
       return customResponse(res,200,true,"Link Add  to DB Sucessfully",newuser)
+    }
+    console.log("exist username",exist.username)
+    if(exist.username!==""){
+         exist.username=user.username
+         await exist.save()
     }
     let lst=[...exist.imgURL_Arr]
     lst.push(req.file.path)
@@ -259,7 +265,7 @@ const getAllUserImages=async(req,res)=>{
     lst.push(...item.imgURL_Arr)
 
   })
-  return customResponse(res,200,true,"Fetched Successfully",lst)
+  return customResponse(res,200,true,"Fetched Successfully",exist)
   console.log("all users",exist)
 
 
@@ -275,6 +281,26 @@ const getUserProfileImage=async(req,res)=>{
   return customResponse(res,200,true,"Succcessfull",exist.profileURL)
 
 }
+// ...............get all userProfile Images....................
+const getAllUserProfiles=async(req,res)=>{
+  
+  let exist = await users.find({})
+  if(exist.length==0){
+    return customResponse(res,400,false,"No Data",null)
+  }
+  let lst=[]
+  exist.forEach((item)=>{
+    lst.push(item.profileURL)
+  })
+  return customResponse(res,200,true,"Fectched Successfully",lst)
 
-module.exports={Register,Login,SendingOtp,ForgotPasswordVerification,
-  Get_User,ResetPassword,uploadProfileImage,ImageUploader,getUserImages,getAllUserImages,getUserProfileImage}
+}
+module.exports={
+
+  Register,Login,SendingOtp,ForgotPasswordVerification,
+
+  Get_User,ResetPassword,uploadProfileImage,ImageUploader,
+
+  getUserImages,getAllUserImages,getUserProfileImage,getAllUserProfiles
+
+}

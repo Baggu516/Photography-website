@@ -17,20 +17,25 @@ import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 // ............react Modal....
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import AuthContext from "../context/AuthContext";
 import api from "../customAxios/Axios";
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: '0%',
-    bottom: 'auto',
-    marginRight: '0%',
-    transform: 'translate(-40%, -40%)',
+    top: "50%",
+    left: "50%",
+    right: "-0%",
+    bottom: "auto",
+    marginRight: "0%",
+    transform: "translate(-60%, -40%)",
+    width: "50rem",
+    height: "30rem",
+  },
+  overlay: {
+    backgroundColor: "grey",
   },
 };
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 // ............................
 const NavBar = () => {
@@ -55,14 +60,21 @@ const NavBar = () => {
     // backgroundColor:"white",
     borderRadius: "5px",
   });
+  const handleHome=()=>{
+    setOpen(false);
+    navigate("/");
+    setModalIsOpen(false)
+  }
   const handleMyAccount = () => {
     setOpen(false);
     navigate("/youraccount");
+    setModalIsOpen(false)
   
   };
   const handleProfile=()=>{
     setOpen(false);
     setModalIsOpen(true)
+    // setModalIsOpen(false)
 
   }
   const handleLogout=()=>{
@@ -112,6 +124,7 @@ const NavBar = () => {
           horizontal: "right",
         }}
       >
+        <MenuItem onClick={handleHome}>Home</MenuItem>
         <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleMyAccount}>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

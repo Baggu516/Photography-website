@@ -6,18 +6,39 @@ import {
   ImageListItem,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext,useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import api from "../customAxios/Axios";
 
 const RightBar = () => {
-  let {imglst}=useContext(AuthContext)
+  let {imglst,token}=useContext(AuthContext)
+  const [profile,setProfile]=useState([])
+  useEffect(()=>{
+    const getImages = async () => {
+      let res = await api.get("/getalluserprofiles", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("res in right component", res.data);
+      console.log("your account data", res.data.success);
+      if (res.data.success) {
+        setProfile([...res.data.data])
+        // return setYourImages([...res.data.data]);
+      }else{
+        alert("someThing Went Wrong !");
+      }
+      
+    };
+    getImages();
+  },[])
   return (
     <Box
       //   bgcolor={"red"}
       
       flex={1}
       p={2}
-      sx={{ display: { xs: "none", sm: "block",right:"0" } }}
+      sx={{ display: { xs: "none", sm: "block", } }}
       // position={"fixed"} 
       // right={0}
     >
@@ -27,14 +48,13 @@ const RightBar = () => {
             Active Users
           </Typography>
           <AvatarGroup
-            total={10}
+            total={profile.length}
             sx={{ padding: "0px", marginLeft: "0px", marginTop: "20px" }}
           >
-            {imglst.map((item,i)=>{
-              return(<>
-               {/* {if(i>6)return } */}
-                {i<6&&<Avatar alt="Remy Sharp" src={item} />}
-              </>
+            {profile&&profile.sort().map((item,i)=>{
+              return(
+                <Avatar alt="Remy Sharp" src={item} key={i}/>
+              
                
               )
             })}
@@ -56,10 +76,9 @@ const RightBar = () => {
             rowHeight={121}
           >
             {imglst.map((item,i) => (
-              <ImageListItem
+              <Box key={i}>
+              {i<6&&<ImageListItem
                 key={i}
-                // cols={item.cols || 1}
-                // rows={item.rows || 1}
               >
                 <img
                   // {...srcset(item.img, 121, item.rows, item.cols)}
@@ -67,7 +86,8 @@ const RightBar = () => {
                   alt={"latest Img"}
                   loading="lazy"
                 />
-              </ImageListItem>
+              </ImageListItem>}
+              </Box>
             ))}
           </ImageList>
         </Box>
