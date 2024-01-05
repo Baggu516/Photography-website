@@ -33,6 +33,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import AuthContext from "../context/AuthContext";
 import api from "../customAxios/Axios";
+import { TurnLeft } from "@mui/icons-material";
 const Feed = () => {
   let { token, setImgLst,setCurrentPath } = useContext(AuthContext);
   const [yourimages, setYourImages] = useState([]);
@@ -40,6 +41,7 @@ const Feed = () => {
   const generateRandom=()=>{
     return Math.floor(Math.random()*10)
   }
+  // ....shuffle the images
   useEffect(() => {
     const getImages = async () => {
       let res = await api.get("/getalluserimages", {
@@ -53,14 +55,19 @@ const Feed = () => {
        
         // storing all images globally
         let lst=[]
-        res.data.data.forEach((item)=>{
-          item.imgURL_Arr.forEach(i=>{
-            lst.push(i)
+        res.data.data.forEach(i=>{
+            i.imgURL_Arr.forEach(item=>{
+              lst.push(item.imgurl)
+            })
+            
           })
-         
+        let t=[...lst].reverse()
+        setImgLst([...t]);
+        let t1=[...res.data.data].reverse()
+        t1.forEach(item=>{
+          item.imgURL_Arr.reverse()
         })
-        setImgLst([...lst]);
-        return setYourImages([...res.data.data]);
+        return setYourImages([...t1]);
       } else {
         alert("someThing Went Wrong !");
       }
@@ -86,7 +93,8 @@ const Feed = () => {
                     height:"90%",
                     width:"90%"
                   }}
-                  key={i+generateRandom()+generateRandom()+generateRandom()}
+                  // key={i+generateRandom()+generateRandom()+generateRandom()}
+                  key={subimg.imgurl}
                 >
                   <CardHeader
                     avatar={
@@ -106,7 +114,7 @@ const Feed = () => {
                     component="img"
                     height="60%"
                     width="20%"
-                    image={`${subimg}`}
+                    image={`${subimg.imgurl}`}
                     alt="Paella dish"
                   />
 
@@ -126,7 +134,7 @@ const Feed = () => {
                   </CardActions>
                   <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                      The only way to do great work is to love what you do.
+                      {subimg.caption || "Life is beautiful" }
                     </Typography>
                   </CardContent>
                 </Card>

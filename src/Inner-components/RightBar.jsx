@@ -44,7 +44,7 @@ const RightBar = () => {
     >
       <Box position={"fixed"}>
         <Box>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" fontWeight={700} style={{textDecoration:"underline"}}>
             Active Users
           </Typography>
           <AvatarGroup
@@ -66,17 +66,17 @@ const RightBar = () => {
         </Box>
       
         <Box marginTop={"80px"}  position={"fixed"}>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" fontWeight={600} style={{textDecoration:"underline"}}>
             Latest Images
           </Typography>
           <ImageList
-            // sx={{ width: 500, height: 450 }}
+            // sx={{ backgroundColor:"gray" }}
             variant="quilted"
             cols={2}
             rowHeight={121}
           >
             {imglst.map((item,i) => (
-              <Box key={i}>
+              <Box key={i} sx={{borderRadius:"100px"}}>
               {i<6&&<ImageListItem
                 key={i}
               >
@@ -85,6 +85,8 @@ const RightBar = () => {
                   src={item}
                   alt={"latest Img"}
                   loading="lazy"
+                  style={{borderRadius:"20px"}}
+
                 />
               </ImageListItem>}
               </Box>

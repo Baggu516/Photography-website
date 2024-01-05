@@ -30,12 +30,12 @@ const YourAccount = () => {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log("res", res.data);
+      console.log("res in your account", res.data);
       console.log("your account data", res.data.success);
       if (res.data.success) {
         return setYourImages([...res.data.data.imgURL_Arr]);
       }else{
-        alert("someThing Went Wrong !");
+        // alert("someThing Went Wrong !");
       }
       
     };
@@ -47,7 +47,7 @@ const YourAccount = () => {
     <Box sx={{ width: { xs: "90%", sm: "30%" }, marginTop: "15px", }}>
       {yourimages.length != 0 ? (
         <>
-          {yourimages.map((img, i) => {
+          {yourimages.reverse().map((img, i) => {
             {console.log(img)}
             return(
                           <Card sx={{marginTop:"20px",marginLeft:{sm:"-100px",xs:"10px"},marginRight:{sm:"100px",xs:"0px"}}} key={i}>
@@ -69,7 +69,7 @@ const YourAccount = () => {
                 component="img"
                 height="60%"
                   width="20%"
-                image={`${img}`}
+                image={`${img.imgurl}`}
                 alt="Paella dish"
               />
 
@@ -89,7 +89,7 @@ const YourAccount = () => {
               </CardActions>
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                  The only way to do great work is to love what you do.
+                  {img.caption || "The only way to do great work is to love what you do."}
                 </Typography>
               </CardContent>
             </Card>

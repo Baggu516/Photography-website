@@ -1,4 +1,7 @@
 const mongoose=require("mongoose")
+const {objectSchema}=require("./subimageModal.js")
+
+
 const imageSchema=mongoose.Schema({
     email:{
         type:String,
@@ -8,7 +11,7 @@ const imageSchema=mongoose.Schema({
         type:String
     },
     imgURL_Arr:{
-        type: [String], 
+        type: [objectSchema], 
         default: []     // Default value (empty array)
     }
 })

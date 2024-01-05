@@ -2,6 +2,7 @@ const { customResponse } = require("../utilities/customResponse.js");
 // .............modals.........
 const {users} = require("../modals/registerModal.js");
 const imagesModal=require("../modals/imageModal.js")
+const {subimageModal}=require("../modals/subimageModal.js")
 const bcrypt = require("bcrypt");
 // .....jwt...
 const jwt = require('jsonwebtoken');
@@ -211,29 +212,57 @@ const ImageUploader=async(req,res)=>{
     let user=req.user
     console.log( req.file.path)
     // res.send( req.file.path)
+    console.log("imageUploader...........",req.body.caption)
     if(req.file.path==""){
       return customResponse(res,400,false,"No Link from Cloudinary",null)
     }
     let exist =await imagesModal.findOne({email:user.email})
     if(exist==null){
-      let newuser=await imagesModal.create({
+      // let subimage=await subimageModal.findOne({email:user.email})
+      // if(subimage==null){
+        let newSubUser=await subimageModal.create({
+          email:user.email,
+          caption:req.body.caption,
+          imgurl:req.file.path
+
+        })
+        console.log("new User in ImageUploader",newSubUser)
+        if(newSubUser!=null){
+          let newuser=await imagesModal.create({
+            email:user.email,
+            username:user.username,
+            imgURL_Arr:[{...newSubUser}]
+      
+          })
+        }
+        else{
+          return customResponse(res,200,false,"error in Sub modal",null)
+        }
+      }
+    else{
+      let newSubUser=await subimageModal.create({
         email:user.email,
-        username:user.username,
-        imgURL_Arr:[req.file.path]
-  
+        caption:req.body.caption,
+        imgurl:req.file.path
+
       })
-      return customResponse(res,200,true,"Link Add  to DB Sucessfully",newuser)
-    }
-    console.log("exist username",exist.username)
-    if(exist.username!==""){
-         exist.username=user.username
-         await exist.save()
-    }
-    let lst=[...exist.imgURL_Arr]
-    lst.push(req.file.path)
-    exist.imgURL_Arr=lst
-    let updated_User=await exist.save()
-    return customResponse(res,200,true,"Successfully Uploaded Image in DataBase !",updated_User)
+      console.log("new User in ImageUploader",newSubUser)
+      if(newSubUser!=null){
+        let lst=[...exist.imgURL_Arr]
+        lst.push({...newSubUser})
+        exist.imgURL_Arr=lst
+      let updated_User=await exist.save()
+      return customResponse(res,200,true,"Uploaded Successfully",updated_User)
+
+      }
+      else{
+        return customResponse(res,200,false,"error in Sub modal",null)
+
+      }
+    }  
+   
+
+    // return customResponse(res,200,true,"Successfully Uploaded Image in DataBase !",updated_User)
    } catch (error) {
      return customResponse(res,500,false,"Something went Wrong !",null)
    }
