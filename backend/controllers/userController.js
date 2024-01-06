@@ -68,11 +68,11 @@ const Login=async(req,res)=>{
   let {email, password } = req.body;
   console.log(req.body)
   if (!email || !password) {
-    return customResponse(res, 400, false, "fill all the fields", null);
+    return customResponse(res, 200, false, "fill all the fields", null);
   } 
   let exist = await users.findOne({email})
   if(exist==null){
-    return customResponse(res,400,false,"User doesn't exist",null)
+    return customResponse(res,200,false,"User doesn't exist",null)
   }
   try {
       console.log("above compare")
@@ -89,7 +89,7 @@ const Login=async(req,res)=>{
       return customResponse(res,200,true,"User Logged in sucessfully",{exist,access_token})
   }
   else{
-      return customResponse(res,400,false,"Invalid credentials",null)
+      return customResponse(res,200,false,"Invalid credentials",null)
   }
   } catch (error) {
       customResponse(res,500,false,"something went wrong",null)

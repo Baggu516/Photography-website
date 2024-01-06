@@ -21,16 +21,25 @@ const LoginForm = () => {
         email,
         password
        })
-       setToken(response.data.data.access_token)
-       setUsername(response.data.data.exist.username)
-       setGmail(response.data.data.exist.email)
-       console.log("token",response.data.data.access_token)
-       console.log("username",response.data.data.exist.username)
-       console.log("userdetails: ",response.data.data.exist.email)
-       localStorage.setItem("token",response.data.data.access_token)
-       localStorage.setItem("username",response.data.data.exist.username)
-       localStorage.setItem("gmail",response.data.data.exist.email)
-       navigate("/")
+       
+       if(response.data.success){
+        setToken(response.data.data.access_token)
+        setUsername(response.data.data.exist.username)
+        setGmail(response.data.data.exist.email)
+        console.log("token",response.data.data.access_token)
+        console.log("username",response.data.data.exist.username)
+        console.log("userdetails: ",response.data.data.exist.email)
+        localStorage.setItem("token",response.data.data.access_token)
+        localStorage.setItem("username",response.data.data.exist.username)
+        localStorage.setItem("gmail",response.data.data.exist.email)
+        alert(response.data.message)
+        navigate("/")
+       }
+       else{
+        // console.log("loginnnnn",response.data)
+       alert(response.data.message)
+       }
+    
     } catch (error) {
       console.log("err in login",error)
     } 
