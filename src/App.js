@@ -19,39 +19,137 @@ import Logout from "./SideBar-Component/Logout";
 import PrivateRoute from "./utilities/PrivateRoute";
 import ForgotPassword from "./components2/ForgotPassword";
 // theme.................
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material/styles";
 import AuthContext from "./context/AuthContext";
 import { useContext } from "react";
 // ........................
+import RedirectRoute from "./utilities/RedirectRoute";
 function App() {
-  let {theme}=useContext(AuthContext)
+  let { theme } = useContext(AuthContext);
   const { id } = useParams();
   console.log("id", id);
   console.log("useParam", useParams());
   return (
-   
     <Box>
-       <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<PrivateRoute><Index /></PrivateRoute>}>
-          <Route index element={<PrivateRoute><Feed /></PrivateRoute>} />
-          {/* <Route index element={<RightBar />} /> */}
-          <Route path="helo" element={<RightBar />} />
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Index />
+              </PrivateRoute>
+            }
+          >
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Feed />
+                </PrivateRoute>
+              }
+            />
+            {/* <Route index element={<RightBar />} /> */}
+            <Route
+              path="helo"
+              element={
+                <PrivateRoute>
+                  <RightBar />
+                </PrivateRoute>
+              }
+            />
 
-          <Route path="home" element={<VerifyOtpForm />} />
-          <Route path="uploads" element={<Uploads />} />
-          <Route path="youraccount" element={<YourAccount />} />
-          <Route path="reset" element={<ResetForm />} />
+            <Route
+              path="home"
+              element={
+                <RedirectRoute>
+                  <VerifyOtpForm />
+                </RedirectRoute>
+              }
+            />
+            <Route
+              path="uploads"
+              element={
+                <PrivateRoute>
+                  <Uploads />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="youraccount"
+              element={
+                <PrivateRoute>
+                  <YourAccount />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="reset"
+              element={
+                <PrivateRoute>
+                  <ResetForm />
+                </PrivateRoute>
+              }
+            />
 
-          <Route path="index" element={<Index />} />
-          <Route path="feed" element={<Feed />}></Route>
-          <Route path="logout" element={<Logout />}></Route>
-        </Route>
-        <Route path="login" element={<LoginForm />} />
-        <Route path="register" element={<RegisterForm />} />
-        <Route path="home" element={<VerifyOtpForm />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-      </Routes>
+            <Route
+              path="index"
+              element={
+                <PrivateRoute>
+                  <Index />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="feed"
+              element={
+                <PrivateRoute>
+                  <Feed />
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="logout"
+              element={
+                <PrivateRoute>
+                  <Logout />
+                </PrivateRoute>
+              }
+            ></Route>
+          </Route>
+          <Route
+            path="login"
+            element={
+              <RedirectRoute>
+                <LoginForm />
+              </RedirectRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RedirectRoute>
+                <RegisterForm />
+              </RedirectRoute>
+            }
+          />
+          <Route
+            path="home"
+            element={
+              <RedirectRoute>
+                <VerifyOtpForm />
+              </RedirectRoute>
+            }
+          />
+          <Route
+            path="/forgotpassword"
+            element={
+              <RedirectRoute>
+                <ForgotPassword />
+              </RedirectRoute>
+            }
+          />
+        </Routes>
       </ThemeProvider>
     </Box>
     // </ThemeProvider>

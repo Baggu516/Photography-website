@@ -57,7 +57,7 @@ const LoginForm = () => {
   return (
     <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
     <Grid item xs={12} sm={8} md={6} lg={4}>
-      <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
+      <Paper elevation={1} style={{ padding: '20px', textAlign: 'center' }}>
         <Typography component="h1" variant="h5" style={{fontWeight:"600",textDecoration:"underline"}}>
           Sign in
         </Typography>

@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color:#ded8dd; */
+  /* background-image: ; */
+  /* background: url('https://source.unsplash.com/1920x1080/?abstract') center/cover fixed; */
+
 }
 
 code {

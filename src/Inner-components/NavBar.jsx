@@ -105,13 +105,17 @@ const NavBar = () => {
       <StyledToolbar>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <AddAPhotoSharpIcon />
-          <Typography variant="h6" p={2}>
+          <Typography variant="h5" p={2} sx={{color:"",fontWeight:500}}>
             Photography
           </Typography>
         </Box>
+        <Box sx={{ display: "flex", alignItems: "center",gap:"10px" }}>
+        <Typography variant="h6" sx={{ display:{sm:"block",xs:"none"},color:"",fontWeight:500,textDecoration:"underline"}}> {localStorage.getItem("username")}</Typography>
         <Icons>
           <Avatar src={profileLink} onClick={() => setOpen(true)} />
         </Icons>
+        </Box>
+       
       </StyledToolbar>
       <Menu
         id="demo-positioned-menu"

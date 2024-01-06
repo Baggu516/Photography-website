@@ -4,3 +4,8 @@ a:hover{
 nav a.active{
     text-decoration: underline;
 }
+body{
+    background-color:#eb95d8;
+    background: url('https://source.unsplash.com/1920x1080/?abstract') center/cover fixed;
+
+}

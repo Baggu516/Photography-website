@@ -1,0 +1,10 @@
+MONGODB_URL=
+//.............
+EMAIL_USERNAME=
+EMAIL_PASSWORD=
+# .............jwt........
+JWT_ACCESS_TOKEN_SECRET_STRING=
+# ..........colud.......
+CLOUD_NAME=
+CLOUD_API_KEY=
+CLOUD_API_SECRETE=
