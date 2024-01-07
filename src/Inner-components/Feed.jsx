@@ -22,7 +22,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link,useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import RightBar from "./RightBar";
 import NavBar from "./NavBar";
@@ -36,11 +36,68 @@ import api from "../customAxios/Axios";
 import { TurnLeft } from "@mui/icons-material";
 const Feed = () => {
   let { token, setImgLst,setCurrentPath } = useContext(AuthContext);
+  let navigation=useNavigate()
   const [yourimages, setYourImages] = useState([]);
   const [value, setValue] = React.useState(0);
   const generateRandom=()=>{
-    return Math.floor(Math.random()*10)
+    return Math.floor(Math.random()*1000)
   }
+  // likes functionality...
+  // const [checked, setChecked] = useState(false);
+  // for reloading
+  const [likess,setLikes]=useState("")
+  const handleCheckboxChange = async(emailRef,refImg,liked) => {
+    // setChecked(event.target.checked);
+  //   {   
+  //     "emailRef":"baggunallagutla@gmail.com",
+  //     "refImg":"https://res.cloudinary.com/desa3sonw/image/upload/v1704422461/photography/bmghklvdwtvjtdb6o2uy.png",
+  //     "liked":true
+  // }
+    //  console.log("parameter from like button",x)
+     let res = await api.post("/likes",{emailRef,refImg,liked}, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    // alert(res.data.message)
+    setLikes(res.data.data.imgURL_Arr.likes + generateRandom() + generateRandom())
+    // ..........for fetching new data........
+    const getImages = async () => {
+      let res = await api.get("/getalluserimages", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("res in feed", res.data);
+      console.log("your account data", res.data.success);
+      if (res.data.success) {
+       
+        // storing all images globally
+        let lst=[]
+        res.data.data.forEach(i=>{
+            i.imgURL_Arr.forEach(item=>{
+              lst.push(item.imgurl)
+            })
+            
+          })
+        let t=[...lst].reverse()
+        setImgLst([...t]);
+        let t1=[...res.data.data].reverse()
+        t1.forEach(item=>{
+          item.imgURL_Arr.reverse()
+        })
+        return setYourImages([...t1]);
+      } else {
+        alert("someThing Went Wrong !");
+      }
+    };
+    getImages();
+    // ....................................
+    navigation("/")
+
+    
+  };
+// console.log("checkeddddddddddddddd",checked)
   // ....shuffle the images
   useEffect(() => {
     const getImages = async () => {
@@ -74,7 +131,7 @@ const Feed = () => {
     };
     getImages();
     setCurrentPath(window.location.pathname)
-  }, []);
+  }, [likess]);
 
   return (
     <Box flex={1.5} p={1} sx={{ display: "flex", flexDirection: "column" }}>
@@ -118,18 +175,24 @@ const Feed = () => {
                     alt="Paella dish"
                   />
 
-                  <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                  <CardActions disableSpacing style={{display:"flex"}}>
+                    <IconButton aria-label="add to favorites" style={{display:"flex",flexDirection:"column",}}>
                       <Checkbox
+                        checked={subimg.likedPersons.includes(localStorage.getItem("username"))&&subimg.checked}
+                        onChange={()=>handleCheckboxChange(subimg.email,subimg.imgurl,!subimg.checked)}
+                      
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite sx={{ color: "red" }} />}
                       />
+                      <Typography variant="p" style={{fontSize:"12px",fontWeight:"400"}}><b style={{fontWeight:900}}>{subimg.likes}</b> likes</Typography>
                     </IconButton>
-                    <IconButton aria-label="share">
-                      <AddCommentOutlinedIcon />
+                    <IconButton aria-label="share" style={{display:"flex",flexDirection:"column",marginTop:"10px"}} onClick={()=>console.log("Testing comment")}>
+                      <AddCommentOutlinedIcon  />
+                      <Typography variant="p" style={{fontSize:"10px",marginTop:"10px"}}>{subimg.comments.length}</Typography>
                     </IconButton>
-                    <IconButton aria-label="share">
+                    <IconButton aria-label="share" style={{display:"flex",flexDirection:"column",marginTop:"10px"}}>
                       <ShareIcon />
+                      <Typography variant="p" style={{fontSize:"10px",marginTop:"10px"}}>{subimg.likes}</Typography>
                     </IconButton>
                   </CardActions>
                   <CardContent>
@@ -143,7 +206,12 @@ const Feed = () => {
           )})}
         </>
       ) : (
-        <>No Posts Yet..............</>
+        <>   
+        <div className="loading-container">
+        <div className="loading-spinner"></div>
+        Loading...........
+      </div>
+      </>
       )}
     </Box>
   );

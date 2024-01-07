@@ -14,6 +14,8 @@ app.use(cors())
 // ...........router.......
 app.use(express.json())
 app.use("/home",require("./routers/userRouter.js"))
+app.use("/home",require("./routers/likesRouter.js"))
+app.use("/home",require("./routers/commentsRouter.js"))
 app.get("/",(req,res)=>{
     res.send("This photography Website")
 })

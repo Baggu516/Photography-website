@@ -3,6 +3,7 @@ import { Button, Grid, Typography, Paper, TextField } from '@mui/material';
 import api from '../customAxios/Axios';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+// csssss.....
 const ImageUploadForm = () => {
   const navigate=useNavigate()
   const [selectedFile, setSelectedFile] = useState(null);
@@ -77,7 +78,11 @@ const ImageUploadForm = () => {
             Upload Image
           </Button>
         </Paper>
-      </Grid>:<>Uploading.........</>}
+      </Grid>:<>   
+      <div className="loading-container">
+      <div className="loading-spinner"></div>
+        </div>
+        </>}
     </Grid>
   );
 };
