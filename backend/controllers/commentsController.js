@@ -15,10 +15,10 @@ const commentsPost = async (req, res) => {
       exist.imgURL_Arr.forEach((item) => {
         console.log("inside Foreach", item.imgurl == refImg);
         if (item.imgurl == refImg) {
-          if (liked) {
-            item.comments=[...item.comments,{ref_Username:username,text:text}]
+          // if (liked) {
+            item.comments=[...item.comments,{ref_Username:req.user.username,text:text}]
              
-          }
+          // }
         //    else {
         //     item.likes = item.likes - 1;
         //   }
