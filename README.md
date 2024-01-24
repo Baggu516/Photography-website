@@ -5,7 +5,7 @@ photos uploaded by other users.
 
 • Also designed like and comment features for post to let users express their views.
 
-# Example installation instructions
+## Example installation instructions
 
   - npm install.
 
