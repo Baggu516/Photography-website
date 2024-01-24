@@ -24,7 +24,7 @@ You may also see any lint errors in the console.
 
 ### `For Back-End`
 
-- npm run dev
+- go to backend folder & use this command npm run dev.
 
 Once you entered into backend folder run above command to get access of backend api's which are related to this project.
 
@@ -41,11 +41,11 @@ Note:
 
 ## Features
 
- - User can able to Reset his Password.
+ - User can Reset his Password.
 
- - User can able upload images and update his profile picture.
+ - User can upload images and update his profile picture.
 
- - User can able to like & comment other posts. 
+ - User can like & comment other posts. 
 
  - If user forgot his password means ,then also he can get his password back through otp verification with his E-mail.
 
