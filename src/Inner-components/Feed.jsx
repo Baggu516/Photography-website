@@ -63,19 +63,42 @@ const Feed = () => {
     return Math.floor(Math.random() * 1000);
   };
   // ..................................Modal............
+  const [marr,setMarr]=useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comments,setComments]=useState([])
   const [refImg,setRefImg]=useState("")
   const [emailRef,setEmailRef]=useState("")
   const [username,setUsername]=useState("")
-  const openModal = (comments,refImg,emailRef,username) => {
+  const openModal = (comments,refImg,emailRef,username,i,index) => {
     setIsModalOpen(true);
     setComments([...comments])
     setEmailRef(emailRef)
     setRefImg(refImg)
     setUsername(username)
+    let temp=[...marr]
+    let temp1=[]
+    let kmain=[]
+    temp.forEach((item,i1)=>{
+     
+      if(i1==i){
+        let k=[]
+        item.forEach((item1,i2)=>{
+          if(i2==index){
+            k.push(!item1)
+          }
+          else{
+            k.push(item1)
+          }
+        })
+        kmain.push(k)
+      }
+      else{
+        kmain.push(item)
+      }
+    })
+    setMarr([...kmain])
   };
-
+  console.log("marrrrrrrrrrrrrrry",marr)
   const closeModal = () => {
     console.log("onclose");
     setIsModalOpen(false);
@@ -142,6 +165,7 @@ const Feed = () => {
     navigation("/");
   };
   // console.log("checkeddddddddddddddd",checked)
+  
   // ....shuffle the images
   useEffect(() => {
     const getImages = async () => {
@@ -155,11 +179,17 @@ const Feed = () => {
       if (res.data.success) {
         // storing all images globally
         let lst = [];
+        let temp=[]
         res.data.data.forEach((i) => {
+          let m=[]
           i.imgURL_Arr.forEach((item) => {
             lst.push(item.imgurl);
+            m.push(false)
           });
+          temp.push(m)
         });
+        temp.reverse()
+        setMarr([...temp])
         let t = [...lst].reverse();
         setImgLst([...t]);
         let t1 = [...res.data.data].reverse();
@@ -173,7 +203,7 @@ const Feed = () => {
     };
     getImages();
     setCurrentPath(window.location.pathname);
-  }, [likess]);
+  }, [comments]);
 
   return (
     <Box flex={1.5} p={1} sx={{ display: "flex", flexDirection: "column" }}>
@@ -256,7 +286,7 @@ const Feed = () => {
                         flexDirection: "column",
                         marginTop: "10px",
                       }}
-                      onClick={()=>openModal(subimg.comments,subimg.imgurl,subimg.email,img.username)}
+                      onClick={()=>openModal(subimg.comments,subimg.imgurl,subimg.email,img.username,i,index)}
                     >
                       <AddCommentOutlinedIcon />
                       <Typography
@@ -265,7 +295,18 @@ const Feed = () => {
                       >
                         {subimg.comments.length}
                       </Typography>
+                     
                     </IconButton>
+                    <Modal isOpen={isModalOpen} style={customStyles}>
+                      {<ModalComponent
+                            closeModal={closeModal}
+                            comments={[...comments]}
+                            refImg={refImg}
+                            emailRef={emailRef}
+                            username={username}
+                            getImages={getImages}
+                          />}
+                      </Modal>
                     <IconButton
                       aria-label="share"
                       style={{
@@ -302,12 +343,12 @@ const Feed = () => {
           </div>
         </>
       )}
-      <Modal isOpen={isModalOpen} style={customStyles}>
+      {/* <Modal isOpen={isModalOpen} style={customStyles}> */}
         {/* <button onClick={closeModal}> close</button>
                       <p>helloooooooooooooooo</p> */}
         {/* refImg, liked, emailRef,text,username  */}
         {/* {console.log("subimage commentssssssssss", subimg.comments)} */}
-        <ModalComponent
+        {/* <ModalComponent
           closeModal={closeModal}
           comments={[...comments]}
           refImg={refImg}
@@ -315,7 +356,7 @@ const Feed = () => {
           username={username}
           getImages={getImages}
         />
-      </Modal>
+      </Modal>  */}
     </Box>
   );
 };

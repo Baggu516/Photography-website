@@ -40,4 +40,20 @@ const commentsPost = async (req, res) => {
     return customResponse(res, 200, false, "Something went wrong", null);
   }
 };
-module.exports = commentsPost;
+// ..........................................................
+// const getComments=async (req,res)=>{
+//   let {imgRef,emailRef}=req.body
+//   let exist = await imagesModal.findOne({email:emailRef})
+//   if(exist == null){
+//     return customResponse(res,200,false,"User not found",null)
+//   }
+//   exist.imgURL_Arr.forEach((item)=>{
+//     if(item. imgurl==imgRef){
+//       return customResponse(res,200,true,"fetched comments successfully",item.comments)
+//     }
+//   })
+
+// }
+module.exports = 
+  commentsPost
+

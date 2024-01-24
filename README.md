@@ -1,12 +1,19 @@
-# Getting Started with Create React App
+# Photography-website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+• Developed a Web application which allows anyone to showcase their photography skills by uploading photos and view
+photos uploaded by other users.
 
-## Available Scripts
+• Also designed like and comment features for post to let users express their views.
 
-In the project directory, you can run:
+# Example installation instructions
 
-### `npm start`
+  - npm install.
+
+# How to start application in your local system
+
+### ` For Front-End`
+
+- npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -14,57 +21,36 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `For Back-End`
 
-### `npm run build`
+- npm run dev
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once you entered into backend folder run above command to get access of backend api's which are related to this project.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Note: 
+- Run backend first.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Configuration
 
-### `npm run eject`
+ - Once you clone this repository you need to confingure .env file.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ - The configuration has to done based on .envSample.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ - Once your done with your configuration then you go for this (# How to start application in your local system).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+ - User can able to Reset his Password.
 
-## Learn More
+ - User can able upload images and update his profile picture.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+ - User can able to like & comment other posts. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - If user forgot his password means ,then also he can get his password back through otp verification with his E-mail.
 
-### Code Splitting
+ ## Constraints
+  
+  - while uploading the images, it takes some time because once user is uploaded his image then it has to go to cloudinary storage ,from that has to uplaod to database.So, to process this process it consume some time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
